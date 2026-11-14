@@ -11,7 +11,6 @@ function getComputerChoice(str) {
         return "tesoura";
     }
 }
-console.log("O computador escolheu: " + getComputerChoice());
 
 function getHumanChoice() {
     let escolha = prompt(" Digite: pedra, papel ou tesoura");
@@ -19,16 +18,37 @@ function getHumanChoice() {
 
 }
 
-console.log("Você escolheu: " + getHumanChoice());
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
 
-let humanScore = 0;
-let computerScore = 0;
+    function playRound(humanChoice, computerChoice) {
+        if (humanChoice === computerChoice) {
+            return "Empate! Ambos escolheram " + humanChoice;
+        } else if (
+            (humanChoice === "pedra" && computerChoice === "tesoura") ||
+            (humanChoice === "papel" && computerChoice === "pedra") ||
+            (humanChoice === "tesoura" && computerChoice === "papel")
+        ) {
+            humanScore++;
+            return "Você venceu! " + humanChoice + " vence " + computerChoice;
+        } else {
+            computerScore++;
+            return "O computador venceu! " + computerChoice + " vence " + humanChoice;
+        }
+    }
 
-function playRound(humanChoice, computerChoice) {
-  // your code here!
+    let round = 0;
+    while (round <= 4) {
+
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+
+        console.log(playRound(humanSelection, computerSelection));
+        console.log("Placar - Você: " + humanScore + " Computador: " + computerScore);
+
+        round++;
+    }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-console.log(playRound(humanSelection, computerSelection));
+playGame();
